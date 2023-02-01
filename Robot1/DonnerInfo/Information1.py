@@ -5,7 +5,7 @@ from megapi import *
 import random
 
 
-host = "172.31.208.173"
+host = "10.3.141.1"
 port = 4455
 addr = (host, port)
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

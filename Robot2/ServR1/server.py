@@ -6,7 +6,7 @@ from math import *
 
 
 if __name__ == "__main__":
-    host = "172.31.208.173"
+    host = "10.3.141.1"
     port = 4455
     """ Creating the UDP socket """
     server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -14,7 +14,7 @@ if __name__ == "__main__":
     server.bind((host, port))
     l = [0, 0, 0]
     ip1 = '10.3.141.101'
-    ip3 = '172.31.208.174'
+    ip3 = '10.3.141.103'
 
     
     messages = queue.Queue()
