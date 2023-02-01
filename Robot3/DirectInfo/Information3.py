@@ -3,7 +3,7 @@ import socket
 import threading
 from megapi import *
 
-host = "172.31.208.173"
+host = "10.3.141.1"
 port = 4455
 addr = (host, port)
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -13,6 +13,7 @@ client.sendto(data, addr)
 message, addr = client.recvfrom(1024)
 adresses = message.decode("utf-8").split()
 p = [(adresses[0], int(adresses[1])), 0, (adresses[2], int(adresses[3]))]
+
 
 distance = 0        
         
@@ -60,7 +61,7 @@ if __name__ == "__main__":
                            
     def send():
         while True:
-            sleep(2);
+            sleep(1);
             bot.ultrasonicSensorRead(8, getValDistance)
             if distance < 20:
                bot.ultrasonicSensorRead(8,SendDistance1)

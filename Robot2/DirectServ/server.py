@@ -6,7 +6,7 @@ from math import *
 
 
 if __name__ == "__main__":
-    host = "172.31.208.173"
+    host = "10.3.141.1"
     port = 4455
     """ Creating the UDP socket """
     server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -14,7 +14,8 @@ if __name__ == "__main__":
     server.bind((host, port))
     l = [0, 0, 0]
     ip1 = '10.3.141.101'
-    ip3 = '172.31.208.174'
+    ip3 = '10.3.141.103'
+    n = 0
 
     
     messages = queue.Queue()
@@ -30,6 +31,7 @@ if __name__ == "__main__":
           
                            
     def send():
+        global n
         while True:
             while not messages.empty():
                 message, addr = messages.get()
@@ -37,12 +39,12 @@ if __name__ == "__main__":
                     l[0] = addr
                 if not addr in l and addr[0] == ip3:
                     l[2] = addr
-                if l[0] != 0 and l[2] != 0:
+                if l[0] != 0 and l[2] != 0 and n == 0:
                     s = ' '.join(map(str, l[0])) + ' ' + ' '.join(map(str, l[2]))
-                    print(s)
                     s = s.encode("utf-8")
                     server.sendto(s, l[0])
                     server.sendto(s, l[2])
+                    n += 1
                     
                     
                 

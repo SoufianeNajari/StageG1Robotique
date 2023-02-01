@@ -5,7 +5,7 @@ from megapi import *
 import random
 
 
-host = "172.31.208.173"
+host = "10.3.141.1"
 port = 4455
 addr = (host, port)
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -64,11 +64,11 @@ if __name__ == "__main__":
             try:
                 message, addr = client.recvfrom(1024)
                 info = message.decode("utf-8").split()
+                print(info)
                 if info[0] == 'Distance':
-                    if float(info[1]) < 10:
+                    if float(info[1]) < 20:
                         vitesseD = vitesseD + 15
                         vitesseG = vitesseD
-                print(message)
             except:
                 pass
           
@@ -82,16 +82,16 @@ if __name__ == "__main__":
             
             
     t1 = threading.Thread(target=receive)
-    t2 = threading.Thread(target=send)
+    #t2 = threading.Thread(target=send)
 
     t1.start()
-    t2.start()
+    #t2.start()
     
     
     while True:
         sleep(0.03)
-        bot.ultrasonicSensorRead(8, getVal)
-        if u <20:
+        bot.ultrasonicSensorRead(8, getValDistance)
+        if distance <20:
             bot.encoderMotorRun(1, 0)
             vitesseG = -vitesseD - vitesseD//2 
         else:
