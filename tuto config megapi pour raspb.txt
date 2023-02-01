@@ -1,0 +1,17 @@
+sudo apt-get update
+sudo apt-get full-upgrade
+sudo apt install python3-pip
+sudo reboot
+sudo raspi-config -> Localisation Options -> WLAN -> FR
+interface -> serial -> No / Yes
+sudo nano /boot/config.txt -> Ajouter : 	#Enable uart			à la fin.
+						enable_uart=1
+						dtoverlay=pi3-disable-bt
+												
+sudo reboot
+sudo systemctl disable hciuart
+sudo pip install megapi
+sudo pip install pyserial
+
+Fin
+
