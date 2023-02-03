@@ -15,7 +15,7 @@ def onReadVitG(v):
     global vG
     vG = (v/60)*perim
 
-deltaT = 0.3
+deltaT = 0.25
 phi = 0
 x = 0
 y = 0
@@ -29,7 +29,7 @@ bot.encoderMotorRun(1, vDc) #c pour consigne
 bot.encoderMotorRun(2, -vGc)
 while 1:
     sleep(deltaT)
-    if x < 600:
+    if x < 200:
         if phi<0:
             bot.encoderMotorRun(1, vDc+4)
             bot.encoderMotorRun(2, -vGc)
