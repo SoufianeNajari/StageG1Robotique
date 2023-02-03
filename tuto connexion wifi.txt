@@ -1,0 +1,5 @@
+Modifier la partie netword du fichier wpa_supplicant.conf 
+Copier le fichier dans la carte SD.
+Démarrer le rasberry.
+
+#Ne pas avoir de hotspot sur le raspberry 
