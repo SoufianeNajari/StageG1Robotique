@@ -3,7 +3,8 @@ import numpy as np
 from random import *
 import time
 
-#Correction mineures 
+#TurnRight prend maintenant un angle en argument
+
 
 phi = 0
 x = 0
@@ -15,10 +16,10 @@ vG = 0
 #Pas changer au dessus
 deltaT = 0.07
 L = 19
-perim = np.pi*6.3
+perim = np.pi*5.75
 #Paramètres importants
-vDc = 35
-vGc = 35
+vDc = 100
+vGc = 100
 
 
 def onReadVitD(v):
@@ -54,18 +55,19 @@ def straight(Distance): #Selon x pour l'instant
 
     bot.encoderMotorRun(1, vDc)
     bot.encoderMotorRun(2, -vGc)
-    sleep(5*deltaT)
-
     
-    phiInst = 0
+
     temps = time.time()
     while DistanceParcourue < Distance:
         sleep(0.001)
         
         if (time.time() - temps) >= deltaT:
             temps = time.time()
-            angle = phiInst
-            if angle<0:
+            
+            
+            bot.gyroRead(0,3,onReadz);
+            angle = (z - zinit)/10 
+            if z - zinit<0:
                 temp = vDc - (33)*(angle)
                 """ print("---------------GAUCHE-----------------") """
                 bot.encoderMotorRun(1, int(temp))
@@ -75,13 +77,15 @@ def straight(Distance): #Selon x pour l'instant
                 """ print("---------------DROITE-----------------") """
                 bot.encoderMotorRun(1, vDc) #c pour consigne
                 bot.encoderMotorRun(2, int(temp))
+            
             bot.encoderMotorSpeed(1,onReadVitD)
             bot.encoderMotorSpeed(2,onReadVitG);
 
-            phiaux = phi
-            phiInst = (deltaT/L)*(vD + vG)
-            phi = phiaux + phiInst
-
+            phiaux = (z-zinit)*0.01745 
+            """ phiInst = (deltaT/L)*(vD + vG)
+            phi = phiaux + phiInst """
+            bot.gyroRead(0,3,onReadz);
+            phi = (z-zinit)*0.01745 
             x = x + (deltaT/2)*(vD - vG)*(1-(phiaux**2)/2)
             y = y + (deltaT/2)*(vD - vG)*phiaux
             
@@ -96,32 +100,57 @@ def straight(Distance): #Selon x pour l'instant
     bot.encoderMotorRun(1, 0) #c pour consigne
     bot.encoderMotorRun(2, 0)
 
-def turnRight():
+def turnRight(angle):
     global x 
     global y
     global phi
-
-    phiturn = phi
+    #Gyro
+    global zinit
+    global z
     phiaux = phi
+    angle = angle - 0.08
+    
+    
+    sleep(0.02)
+    bot.gyroRead(0,3,onReadzinit);
+    sleep(0.1)
+    zinit2 = zinit*0.01745 #en rad
+    z2=zinit2
+    print(zinit)
     temps = time.time()
-    while phiaux - phiturn > -np.pi/2: 
-        sleep(0.005)
-
-        if (time.time() - temps) >= deltaT and (phiaux - phiturn > -np.pi/2):
+    while (zinit2-angle<z2<zinit2+0.01 and zinit2>=angle - 3.1415) or (zinit2<=angle - 3.1415 and (z2>=zinit2+2*3.1415-angle or z2<zinit2+0.1)):
+        sleep(0.002)
+        
+        if (time.time() - temps) >= deltaT:
             temps = time.time()
-            bot.encoderMotorRun(1, -vDc)
-            bot.encoderMotorRun(2, -vGc)
+            
+            bot.encoderMotorRun(1, -35)
+            bot.encoderMotorRun(2, -35)
+            
             bot.encoderMotorSpeed(1,onReadVitD);
             bot.encoderMotorSpeed(2,onReadVitG);
             
-            phiaux = phi
-            phi = phi + (deltaT/L)*(vD + vG)
+            bot.gyroRead(0,3,onReadz);
+            phiaux = (z-zinit)*0.01745 
+            
+            
             x = x + (deltaT/2)*(vD - vG)*(1-(phiaux**2)/2)
             y = y + (deltaT/2)*(vD - vG)*phiaux
+
+            bot.gyroRead(0,3,onReadz);
+            sleep(0.005)
+            z2 = z*0.01745
+            sleep(0.001)
+            
                 
-    print("x : "+str(x)+ "            y  : "+str(y)+ "         phi : "+str(phiaux))
+    """ print("x : "+str(x)+ "            y  : "+str(y)+ "         phi : "+str(phiaux)) """
+
     bot.encoderMotorRun(1, 0) #c pour consigne
     bot.encoderMotorRun(2, 0)
+    sleep(0.2)
+    bot.gyroRead(0,3,onReadz);
+    sleep(0.1)
+    print(z)
     sleep(0.1)
 
 def turnLeft():
@@ -155,7 +184,46 @@ def turnLeft():
 bot = MegaPi()
 bot.start()
 
-straight(300)
+
+straight(220)
+turnRight(np.pi/2)
+straight(260)
+turnRight(3*np.pi/2)
+straight(260)
+turnRight(3*np.pi/2)
+straight(200)
+sleep(5)
+turnRight(np.pi)
+straight(200)
+turnRight(np.pi/2)
+straight(260)
+turnRight(np.pi/2)
+straight(260)
+turnRight(3*np.pi/2)
+straight(220)
+turnRight(np.pi)
+
+
+""" straight(100)
+turnRight(np.pi/2)
+straight(100)
+turnRight(np.pi/2)
+straight(100)
+turnRight(np.pi/2)
+straight(100)
+turnRight(np.pi)
+sleep(5)
+straight(100)
+turnRight(3*np.pi/2)
+straight(100)
+turnRight(3*np.pi/2)
+straight(100)
+turnRight(3*np.pi/2)
+straight(100)
+turnRight(np.pi) """
+
+
+
 
 
 """ 
