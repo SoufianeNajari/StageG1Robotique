@@ -42,6 +42,7 @@ def onReadz(level):
 def onReadzstart(level):
 	global zstart
 	zstart = level
+
 def straight(Distance): #Selon x pour l'instant
     global x 
     global y
@@ -59,8 +60,8 @@ def straight(Distance): #Selon x pour l'instant
 
     bot.encoderMotorRun(1, vDc)
     bot.encoderMotorRun(2, -vGc)
-    
-
+    print("xstart : "+str(x) + "     ystart : "+str(y))
+    print("--------------------------------------------")
     temps = time.time()
     while DistanceParcourue < Distance:
         sleep(0.001)
@@ -89,13 +90,15 @@ def straight(Distance): #Selon x pour l'instant
             
             bot.gyroRead(0,3,onReadz);
              
-            x = x + (deltaT/2)*(vD - vG)*(1-(phiaux**2)/2)
-            y = y + (deltaT/2)*(vD - vG)*phiaux
-            
+            x = x + (deltaT/2)*(vD - vG)*np.cos(phiaux)
+            y = y + (deltaT/2)*(vD - vG)*np.sin(phiaux)
+            print("x : "+str(x)+ "            y  : "+str(y)) 
+            print("xaux : "+str(xaux)+ "            yaux  : "+str(yaux))
             DistanceParcourue = np.sqrt((x - xaux)**2 + (y - yaux)**2)
-
+            print("Distance Parcourue : " + str(DistanceParcourue))
+            print("---------------------------------------------")
             
-    print("x : "+str(x)+ "            y  : "+str(y)+ "         phi : "+str(phi)) 
+    print("x : "+str(x)+ "            y  : "+str(y)) 
     #Gyro
     bot.gyroRead(0,3,onReadz);  
     print("zinit : "+str(zinit) + "     z : "+str(z))
@@ -113,6 +116,8 @@ def turnRight(angle):
     global z
     phiaux = phi
     angle = angle - 0.08
+    while angle < 0:
+        angle = angle + 2*np.pi
     
     
     sleep(0.02)
@@ -138,8 +143,8 @@ def turnRight(angle):
             phiaux = (z-zinit)*0.01745 
             
             
-            x = x + (deltaT/2)*(vD - vG)*(1-(phiaux**2)/2)
-            y = y + (deltaT/2)*(vD - vG)*phiaux
+            x = x + (deltaT/2)*(vD - vG)*np.cos(phiaux)
+            y = y + (deltaT/2)*(vD - vG)*np.sin(phiaux)
 
             bot.gyroRead(0,3,onReadz);
             sleep(0.005)
@@ -185,6 +190,27 @@ def turnLeft():
     bot.encoderMotorRun(2, 0)
     sleep(0.1)
 
+def go(X,Y):
+    global x 
+    global y
+    global phi
+    global zstart
+    #Gyro
+    global zinit
+    global z
+
+    bot.gyroRead(0,3,onReadz);
+    sleep(0.1)
+    angle = np.arctan((Y-y)/(X-x)) - z*0.01745
+    Distance = np.sqrt((Y-y)**2 + (X-x)**2)
+
+    turnRight(angle)
+    straight(Distance)
+
+
+
+
+T = time.time()
 bot = MegaPi()
 bot.start()
 sleep(0.1)
@@ -228,6 +254,8 @@ turnRight(3*np.pi/2)
 straight(100)
 turnRight(np.pi) """
 
-straight(100)
-""" turnRight(np.pi/2)
-straight(100) """
+""" straight(200) """
+go(100,0)
+go(100,100)
+go(0,0)
+go(10,0)
