@@ -6,26 +6,24 @@ from megapi import *
 host = "10.3.141.1"
 port = 4455
 addr = (host, port)
-name = "Robot3"
-client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-data = "Connexion"
-data = data.encode("utf-8")
-client.sendto(data, addr)
-message, addr = client.recvfrom(1024)
-adresses = message.decode("utf-8").split()
-p = [(adresses[0], int(adresses[1])), (adresses[2], int(adresses[3])), (adresses[4], int(adresses[5]))]
+name = "Robot2"
+# client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+# data = "Connexion"
+# data = data.encode("utf-8")
+# client.sendto(data, addr)
+# message, addr = client.recvfrom(1024)
+# adresses = message.decode("utf-8").split()
+# p = [(adresses[0], int(adresses[1])), (adresses[2], int(adresses[3])), (adresses[4], int(adresses[5]))]
 bot = MegaPi()
 bot.start()
-# vitesseD = 30
-# vitesseG = vitesseD
-# bot.encoderMotorRun(1,vitesseD);
-# bot.encoderMotorRun(2, -vitesseG);
+vitesseD = 30
+vitesseG = vitesseD
+bot.encoderMotorRun(1,vitesseD);
+bot.encoderMotorRun(2, -vitesseG);
 sleep(1);
 
 
-distance = 0     
-vitesseD = 0
-vitesseG = 0   
+distance = 0        
         
 def onReadDist(v):
     msg = "Distance " + str(v)
@@ -34,7 +32,7 @@ def onReadDist(v):
 
 
 def SendVitesse1(v):
-    msg = "Vitesse " + str(v) + " " + name
+    msg = "Vitesse " + str(v)
     msg = msg.encode("utf-8")
     client.sendto(msg, p[0])
 
@@ -96,3 +94,4 @@ if __name__ == "__main__":
     #         vitesseG = vitesseD
     #     bot.encoderMotorRun(1, vitesseD)
     #     bot.encoderMotorRun(2, -vitesseG)
+

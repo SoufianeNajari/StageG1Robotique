@@ -1,6 +1,7 @@
 import queue
 import socket
 import threading
+import queue
 from megapi import *
 
 host = "10.3.141.1"
@@ -8,12 +9,11 @@ port = 4455
 addr = (host, port)
 name = "Robot3"
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-data = "Connexion"
-data = data.encode("utf-8")
-client.sendto(data, addr)
-message, addr = client.recvfrom(1024)
-adresses = message.decode("utf-8").split()
-p = [(adresses[0], int(adresses[1])), (adresses[2], int(adresses[3])), (adresses[4], int(adresses[5]))]
+ip1 = '10.3.141.101'
+ip2 = '10.3.141.102'
+ip3 = '10.3.141.103'
+client.bind(("0.0.0.0", 5003))
+p = [(ip1, 5001), (ip2, 5002), (ip3, 5003)]
 bot = MegaPi()
 bot.start()
 # vitesseD = 30
@@ -26,6 +26,7 @@ sleep(1);
 distance = 0     
 vitesseD = 0
 vitesseG = 0   
+
         
 def onReadDist(v):
     msg = "Distance " + str(v)
@@ -44,13 +45,35 @@ def SendDistance1(v):
     client.sendto(msg, p[0])
 
 
+def getValVitesseD(v):
+    global vitesseD
+    vitesseD = v
+
+def getValVitesseG(v):
+    global vitesseG
+    vitesseG = v
+
+
 def getValDistance(v):
     global distance
     distance = v
 
+def SendVitesseServer():
+    bot.encoderMotorSpeed(1, getValVitesseD)
+    bot.encoderMotorSpeed(2, getValVitesseG)
+    msg = "Vitesse " + str(vitesseD) + " " + str(vitesseG) + " " + name
+    msg = msg.encode("utf-8")
+    client.sendto(msg, addr)
+
+def SendVitesse1():
+    bot.encoderMotorSpeed(1, getValVitesseD)
+    bot.encoderMotorSpeed(2, getValVitesseG)
+    msg = "Vitesse " + str(vitesseD) + " " + str(vitesseG) + " " + name
+    msg = msg.encode("utf-8")
+    client.sendto(msg, p[0])
+
 
 if __name__ == "__main__":
-    """ Creating the UDP socket """
     bot = MegaPi()
     bot.start()
     sleep(1);
@@ -61,23 +84,22 @@ if __name__ == "__main__":
         while True:
             try:
                 message, addr = client.recvfrom(1024)
-                info = message.decode("utf-8").split()
-                
-                print(message)
+                info = message.decode("utf-8")
+                print(info)
             except:
                 pass
           
                            
     def send():
         while True:
-            sleep(1);
-            bot.ultrasonicSensorRead(8, getValDistance)
-            if distance < 20:
-               bot.ultrasonicSensorRead(8,SendDistance1)
-            
-            #bot.encoderMotorSpeed(1,onReadVit);
-             
-            
+            sleep(1)
+            SendVitesseServer()
+            try:
+                SendVitesse1()
+            except:
+                pass
+
+
     t1 = threading.Thread(target=receive)
     t2 = threading.Thread(target=send)
 
