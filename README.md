@@ -54,7 +54,7 @@ ifconfig
 ```
 ![ifconfig](https://user-images.githubusercontent.com/124148152/218418722-fa955eca-8282-4e9a-90c5-6dba7f65835c.jpg)
 
-* Saisir le code suivant pour créer le serveur(l'entier associé à la variable port est choisi de manière aléotoire mais il doit par la suite être gardé pour les autres appareils amenés à se connecter au serveur)
+* Saisir le code suivant pour créer le serveur(l'entier associé à la variable port est choisi de manière aléatoire mais il doit par la suite être gardé pour les autres appareils amenés à se connecter au serveur)
 ```
 host = "10.3.141.1"
 port = 4455
@@ -103,7 +103,7 @@ t2 = threading.Thread(target=send)
 t1.start()
 t2.start()
 ```
-Ici, le serveur stock et affiche les messages qu'il reçoit dans une pile 'messages' dans la fonction receive, qui va ensuite être dépilée dans la fonction send pour renvoyer le message aux autres robots. "p" est une liste qui contient la liste des adresses des 3 robots.
+Ici, le serveur stocke et affiche les messages qu'il reçoit dans une pile 'messages' dans la fonction receive, qui va ensuite être dépilée dans la fonction send pour renvoyer le message aux autres robots. "p" est une liste qui contient la liste des adresses des 3 robots.
 
 
 ## Création des robots clients
@@ -126,9 +126,9 @@ port = 4455
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 client.bind(("", port))
 ```
-* Comme pour le serveur, créer des thread pour que les robots puissent à la fois envoyer et recevoir des informations. La fonction receive est assez similaire à celui du serveur contrairement à la fonction send dans lequel les robots n'envoient pas ce qu'ils reçoivent mais les données de leurs capteurs.
+* Comme pour le serveur, créer des thread pour que les robots puissent à la fois envoyer et recevoir des informations. La fonction receive est assez similaire à celui du serveur contrairement à la fonction send dans laquel les robots n'envoient pas ce qu'ils reçoivent mais les données rassemblées par leurs capteurs.
 
-* Pour récupérer les données des capteurs, voir la librairie MakeBlock :
+* Voir la librairie MakeBlock pour récupérer les données des capteurs et actionner les moteurs :
 https://github.com/Makeblock-official/PythonForMegaPi
 
 ### Format JSON
