@@ -16,7 +16,7 @@ server.bind((host, port))
 ip1 = '10.3.141.101'
 ip2 = '10.3.141.102'
 ip3 = '10.3.141.103'
-p = [(ip1, 5001), (ip2, 5002), (ip3, 5003)]
+p = [(ip1, 4455), (ip2, 4455), (ip3, 4455)]
 
     
 messages = queue.Queue()      
@@ -34,9 +34,9 @@ def send():
     while True:
         while not messages.empty():
             message, addr = messages.get()
-            # server.sendto(message, p[0])
-            # server.sendto(message, p[1])
-            # server.sendto(message, p[2])
+            server.sendto(message, p[0])
+            server.sendto(message, p[1])
+            server.sendto(message, p[2])
             
 
                 

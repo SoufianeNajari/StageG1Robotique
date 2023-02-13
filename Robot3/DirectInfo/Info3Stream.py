@@ -3,6 +3,7 @@ import socket
 import threading
 import queue
 from megapi import *
+import json
 
 host = "10.3.141.1"
 port = 4455
@@ -12,8 +13,8 @@ client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 ip1 = '10.3.141.101'
 ip2 = '10.3.141.102'
 ip3 = '10.3.141.103'
-client.bind(("0.0.0.0", 5003))
-p = [(ip1, 5001), (ip2, 5002), (ip3, 5003)]
+client.bind(("0.0.0.0", 4455))
+p = [(ip1, 4455), (ip2, 4455), (ip3, 4455)]
 bot = MegaPi()
 bot.start()
 # vitesseD = 30
@@ -26,6 +27,7 @@ sleep(1);
 distance = 0     
 vitesseD = 0
 vitesseG = 0   
+z = 0
 
         
 def onReadDist(v):
@@ -33,16 +35,6 @@ def onReadDist(v):
     msg = msg.encode("utf-8")
     client.sendto(msg, addr)
 
-
-def SendVitesse1(v):
-    msg = "Vitesse " + str(v) + " " + name
-    msg = msg.encode("utf-8")
-    client.sendto(msg, p[0])
-
-def SendDistance1(v):
-    msg = "Distance " + str(v) + " " + name
-    msg = msg.encode("utf-8")
-    client.sendto(msg, p[0])
 
 
 def getValVitesseD(v):
@@ -58,20 +50,36 @@ def getValDistance(v):
     global distance
     distance = v
 
-def SendVitesseServer():
+def getz(level):
+	global z
+	z = level  
+
+def MsgRobot():
+    global msgRobot
+    global z
     bot.encoderMotorSpeed(1, getValVitesseD)
     bot.encoderMotorSpeed(2, getValVitesseG)
-    msg = "Vitesse " + str(vitesseD) + " " + str(vitesseG) + " " + name
+    bot.ultrasonicSensorRead(8, getValDistance)
+    bot.gyroRead(0,3,getz)
+    sleep(0.1)
+    msg = {
+        "VD" : vitesseD,
+        "VG" : vitesseG,
+        "Distance" : distance,
+        "z" : z
+    }
+    msg = json.dumps(msg)
     msg = msg.encode("utf-8")
-    client.sendto(msg, addr)
+    msgRobot = msg
 
-def SendVitesse1():
-    bot.encoderMotorSpeed(1, getValVitesseD)
-    bot.encoderMotorSpeed(2, getValVitesseG)
-    msg = "Vitesse " + str(vitesseD) + " " + str(vitesseG) + " " + name
-    msg = msg.encode("utf-8")
-    client.sendto(msg, p[0])
 
+def SendServer():
+    global msgRobot
+    client.sendto(msgRobot, addr)
+
+def SendRobot1():
+    global msgRobot
+    client.sendto(msgRobot, p[0])
 
 if __name__ == "__main__":
     bot = MegaPi()
@@ -93,9 +101,9 @@ if __name__ == "__main__":
     def send():
         while True:
             sleep(1)
-            SendVitesseServer()
+            SendServer()
             try:
-                SendVitesse1()
+                SendRobot1()
             except:
                 pass
 

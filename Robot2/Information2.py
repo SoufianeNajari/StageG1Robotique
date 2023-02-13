@@ -7,19 +7,19 @@ host = "10.3.141.1"
 port = 4455
 addr = (host, port)
 name = "Robot2"
-client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-data = "Connexion"
-data = data.encode("utf-8")
-client.sendto(data, addr)
-message, addr = client.recvfrom(1024)
-adresses = message.decode("utf-8").split()
-p = [(adresses[0], int(adresses[1])), (adresses[2], int(adresses[3])), (adresses[4], int(adresses[5]))]
+# client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+# data = "Connexion"
+# data = data.encode("utf-8")
+# client.sendto(data, addr)
+# message, addr = client.recvfrom(1024)
+# adresses = message.decode("utf-8").split()
+# p = [(adresses[0], int(adresses[1])), (adresses[2], int(adresses[3])), (adresses[4], int(adresses[5]))]
 bot = MegaPi()
 bot.start()
-# vitesseD = 30
-# vitesseG = vitesseD
-# bot.encoderMotorRun(1,vitesseD);
-# bot.encoderMotorRun(2, -vitesseG);
+vitesseD = 30
+vitesseG = vitesseD
+bot.encoderMotorRun(1,vitesseD);
+bot.encoderMotorRun(2, -vitesseG);
 sleep(1);
 
 
