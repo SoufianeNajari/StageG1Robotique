@@ -152,12 +152,12 @@ msg = {
     }
 msg = json.dumps(msg) # on obtient un json string
 ```
+
 Pour convertir du json en python :
 ```
 msg = msg.loads(s) # on obtient un dictionnaire python
 print(msg["VD"]) # affiche vitesseD
-
-
+```
 
 ## Node-RED
 
