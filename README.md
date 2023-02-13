@@ -74,7 +74,7 @@ import socket
 import threading
 from megapi import *
 ```
-* Déterminer l'adresse ip de la carte rasberry pi en saisissant dans son terminal mobaxterm :
+* Déterminer l'adresse ip de la carte rasberry pi de la même manière que pour le serveur:
 ```
 ifconfig
 ```
