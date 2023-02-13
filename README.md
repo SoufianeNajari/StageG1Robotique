@@ -131,6 +131,8 @@ client.bind(("", port))
 * Pour récupérer les données des capteurs, voir la librairie MakeBlock :
 https://github.com/Makeblock-official/PythonForMegaPi
 
+### Format JSON
+
 
 ## Node-RED
 
