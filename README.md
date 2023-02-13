@@ -52,7 +52,7 @@ import threading
 ```
 ifconfig
 ```
-![image](D:\Téléchargement\images\ifconfig.jpg)
+![ifconfig](https://user-images.githubusercontent.com/124148152/218418722-fa955eca-8282-4e9a-90c5-6dba7f65835c.jpg)
 
 * Saisir le code suivant pour créer le serveur(l'entier associé à la variable port est choisi de manière aléotoire mais il doit par la suite être gardé pour les autres appareils amenés à se connecter au serveur)
 ```
