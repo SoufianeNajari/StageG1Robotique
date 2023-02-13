@@ -133,6 +133,31 @@ https://github.com/Makeblock-official/PythonForMegaPi
 
 ### Format JSON
 
+* Pour que les données échangées soient faciles à décrypter, les messages sont envoyés sous format JSON
+```
+"{ "VD":vitesseD, "VG":vitesseG, "Distance":distance, "z" : z}"
+```
+Pour faire cela, importer la librairie json
+```
+import json
+```
+
+Pour convertir du python en json : 
+```
+msg = {
+        "VD" : vitesseD,
+        "VG" : vitesseG,
+        "Distance" : distance,
+        "z" : z
+    }
+msg = json.dumps(msg) # on obtient un json string
+```
+Pour convertir du json en python :
+```
+msg = msg.loads(s) # on obtient un dictionnaire python
+print(msg["VD"]) # affiche vitesseD
+
+
 
 ## Node-RED
 
