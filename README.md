@@ -132,5 +132,18 @@ client.bind(("", port))
 https://github.com/Makeblock-official/PythonForMegaPi
 
 
+## Node-RED
+
+* Installer Node-RED sur le serveur en saisissant dans le terminal mobaxterm : 
+```
+bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
+```
+Pour accéder à Node-RED, saisir dans un navigateur : 
+```
+AdressIPRaspberry:1880
+```
+
+* 
+
 
 
