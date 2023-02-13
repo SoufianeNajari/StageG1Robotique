@@ -91,6 +91,5 @@ client.bind(("", port))
 https://github.com/Makeblock-official/PythonForMegaPi
 
 
-https://cdn.discordapp.com/attachments/976570717573373982/1073616002467770368/IMG_1818.jpg
 
 
