@@ -182,6 +182,7 @@ AdressIPRaspberry:1880
 * Pour différencier la provenance des données, utiliser le node switch qui peut faire des opérations de comparaison sur les adresses ip des robots qui émettent des données
 ![node_switch](https://user-images.githubusercontent.com/124148152/218455449-3519d3e5-d862-438d-adac-54bddaeda2b5.jpg)
 
-
+* Importer le module ci-dessous pour utiliser un clavier ou une souris branchée au raspberry pi:
+![import clavier raspberry](https://user-images.githubusercontent.com/124148152/218463295-c777e894-3a31-46ff-a807-eabef436ad55.jpg)
 
 
