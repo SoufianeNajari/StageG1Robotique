@@ -169,8 +169,9 @@ Pour accéder à Node-RED, saisir dans un navigateur :
 ```
 AdressIPRaspberry:1880
 ```
+* Pour tracer les graphiques sur les différentes données des robots, utiliser le format json
+![image](https://user-images.githubusercontent.com/124148152/218424080-634b2e25-d37a-42b6-a86b-70d9d733ed9c.png)
 
-* 
 
 
 
