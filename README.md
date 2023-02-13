@@ -1,4 +1,4 @@
-# Initialisation des différents robots
+# Initialisation des robots
 ## Installation du système d'exploitation et configuration de la connexion wifi
 * Installer RasperryPi Lite 64-bit sur les cartes SD : https://www.raspberrypi.com/software/operating-systems/
 * Modifier le fichier [wifi_hotspot/wpa_supplicant.conf](wifi_hotspot/wpa_supplicant.conf) ( Uniquement les lignes SSID et psk )
