@@ -31,9 +31,9 @@ https://github.com/Makeblock-official/PythonForMegaPi/tree/master/examples
 * Faire une commande **ifconfig** pour vérifier que l'ip est bien celle indiqué sur le site
 * Il est alors possible d'avoir accès au panel de configuration du hotspot via : [10.3.141.1](10.3.141.1)
 * Sur ce panel il est utile de faire plusieurs choses : 
-    - Mettre une ip static dans DHCP Server -> Static Leases 
-   ![image](https://user-images.githubusercontent.com/35781656/218414799-37e7afe9-2a4a-4825-a672-90806a005dd0.png)
-    - 
+	- Changer le SSID, la clé wifi ainsi que le Channel si nécessaire 
+ 	- Mettre des ip static pour chaque robots pour faciliter la suite : DHCP Server -> Static Leases 
+ ![image](https://user-images.githubusercontent.com/35781656/218414799-37e7afe9-2a4a-4825-a672-90806a005dd0.png)
 
 
 
