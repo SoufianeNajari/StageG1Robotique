@@ -29,5 +29,6 @@ if __name__ == '__main__':
 		bot.gyroRead(0,1,onReadx);
 		bot.gyroRead(0,2,onReady);
 		bot.gyroRead(0,3,onReadz);
+		sleep(0.1)
 		print("x : "+str(round(x,2)) + "       y : "+str(round(y,2))+"       z : "+str(round(z,2)))
 		print("----------------------")

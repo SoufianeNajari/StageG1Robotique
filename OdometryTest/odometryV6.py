@@ -19,8 +19,8 @@ deltaT = 0.07
 L = 19
 perim = np.pi*5.75
 #Paramètres importants
-vDc = 60
-vGc = 60
+vDc = 80
+vGc = 80
 
 
 def onReadVitD(v):
@@ -64,7 +64,7 @@ def straight(Distance): #Selon x pour l'instant
     print("--------------------------------------------")
     temps = time.time()
     while DistanceParcourue < Distance:
-        sleep(0.001)
+        sleep(0.002)
         
         if (time.time() - temps) >= deltaT:
             temps = time.time()
@@ -74,12 +74,12 @@ def straight(Distance): #Selon x pour l'instant
             angle = (z - zinit)/10 
             if z - zinit<0:
                 temp = vDc - (33)*(angle)
-                """ print("---------------GAUCHE-----------------") """
+                print("---------------GAUCHE-----------------")
                 bot.encoderMotorRun(1, int(temp))
                 bot.encoderMotorRun(2, -vGc)
             else:
                 temp = -vGc - (33)*(angle)
-                """ print("---------------DROITE-----------------") """
+                print("---------------DROITE-----------------")
                 bot.encoderMotorRun(1, vDc) #c pour consigne
                 bot.encoderMotorRun(2, int(temp))
             
@@ -118,14 +118,15 @@ def turnRight(angle):
     angle = angle - 0.08
     while angle < 0:
         angle = angle + 2*np.pi
-    
+    while angle > 2*np.pi:
+        angle = angle - 2*np.pi
     
     sleep(0.02)
     bot.gyroRead(0,3,onReadzinit);
     sleep(0.1)
     zinit2 = zinit*0.01745 #en rad
     z2=zinit2
-    print(zinit)
+
     temps = time.time()
     while (zinit2-angle<z2<zinit2+0.01 and zinit2>=angle - 3.1415) or (zinit2<=angle - 3.1415 and (z2>=zinit2+2*3.1415-angle or z2<zinit2+0.1)):
         sleep(0.002)
@@ -157,10 +158,7 @@ def turnRight(angle):
     bot.encoderMotorRun(1, 0) #c pour consigne
     bot.encoderMotorRun(2, 0)
     sleep(0.2)
-    bot.gyroRead(0,3,onReadz);
-    sleep(0.1)
-    print(z)
-    sleep(0.1)
+    
 
 def turnLeft():
     global x 
@@ -201,11 +199,33 @@ def go(X,Y):
 
     bot.gyroRead(0,3,onReadz);
     sleep(0.1)
-    angle = np.arctan((Y-y)/(X-x)) - z*0.01745
+    if -10 < X-x < 10:
+        if Y-y > 0:
+            angle = -(np.pi/2 - z*0.01745)
+        elif Y-y < 0:
+            angle = -(-np.pi/2 - z*0.01745)
+        else:
+            angle = 0
+    elif -10 < Y-y < 10:
+        if X-x > 0:
+            angle = z*0.01745
+        elif X-x < 0:
+            angle = -(np.pi - z*0.01745)
+        else:
+            angle = 0
+    else:
+        if X-x < 0:
+            angle = -(np.arctan((Y-y)/(X-x)) - (np.pi-z*0.01745))
+        else:
+            angle = -(np.arctan((Y-y)/(X-x)) - z*0.01745)
+    print("ANGLE : "+str(angle/0.01745))
+    print("z : " + str(z))
     Distance = np.sqrt((Y-y)**2 + (X-x)**2)
-
+    sleep(0.5)
     turnRight(angle)
+    sleep(0.5)
     straight(Distance)
+    print("-------------------------------------FIN GO--------------------------------------------------")
 
 
 
@@ -254,8 +274,20 @@ turnRight(3*np.pi/2)
 straight(100)
 turnRight(np.pi) """
 
-""" straight(200) """
-go(100,0)
-go(100,100)
+
+#Couloir
+""" go(220,-260)
+go(480,-260)
+go(480,-460)
+
+
+go(480,-260)
+go(220,-260)
 go(0,0)
-go(10,0)
+ """
+
+
+go(200,-200)
+go(100,-100)
+go(0,0)
+go(100,0)
