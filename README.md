@@ -3,7 +3,7 @@
 * Installer RasperryPi Lite 64-bit sur les cartes SD : https://www.raspberrypi.com/software/operating-systems/
 * Modifier le fichier [wifi_hotspot/wpa_supplicant.conf](wifi_hotspot/wpa_supplicant.conf) ( Uniquement les lignes SSID et psk )
 * Déplacer le fichier dans la carte SD et démarrer le RaspberryPi dessus
-Il est possible de les connecter au réseau wifi hotspot crée par un RaspberryPi ce sera détaillé un peu plus bas.
+* Il est possible de les connecter au réseau wifi hotspot crée par un RaspberryPi ce sera détaillé un peu plus bas.
 
 ## Configuration du RaspberryPi pour utiliser la librairie MakeBlock (Capteurs et Moteurs)
 * Executer ces commandes / opérations dans l'ordre : 
@@ -14,9 +14,9 @@ sudo apt install python3-pip
 sudo reboot
 sudo raspi-config -> Localisation Options -> WLAN -> FR
 interface -> serial -> No / Yes
-sudo nano /boot/config.txt -> Ajouter : 	#Enable uart			        à la fin.
-						                    enable_uart=1
-						                    dtoverlay=pi3-disable-bt
+sudo nano /boot/config.txt -> Ajouter : 	#Enable uart			à la fin.
+						enable_uart=1
+						dtoverlay=pi3-disable-bt
 												
 sudo reboot
 sudo systemctl disable hciuart
@@ -25,6 +25,17 @@ sudo pip install pyserial
 ```
 Et la configuration est alors terminé vous pouvez tester cela en exécutant un script exemple MakeBlock : 
 https://github.com/Makeblock-official/PythonForMegaPi/tree/master/examples
+
+## Création d'un hotspot Wifi sur un des Raspberry : 
+* Suivre le tutoriel indiqué sur ce site : https://raspap.com/#quick
+* Faire une commande **ifconfig** pour vérifier que l'ip est bien celle indiqué sur le site
+* Il est alors possible d'avoir accès au panel de configuration du hotspot via : [10.3.141.1](10.3.141.1)
+* Sur ce panel il est utile de faire plusieurs choses : 
+    - Mettre une ip static dans DHCP Server -> Static Leases 
+   ![image](https://user-images.githubusercontent.com/35781656/218414799-37e7afe9-2a4a-4825-a672-90806a005dd0.png)
+    - 
+
+
 
 
 
@@ -104,7 +115,7 @@ import socket
 import threading
 from megapi import *
 ```
-* Déterminer l'adresse ip de la carte rasberry pi de la même manière que pour le serveur:
+* Déterminer l'adresse ip de la carte rasberry pi en saisissant dans son terminal mobaxterm :
 ```
 ifconfig
 ```
@@ -119,11 +130,6 @@ client.bind(("", port))
 
 * Pour récupérer les données des capteurs, voir la librairie MakeBlock :
 https://github.com/Makeblock-official/PythonForMegaPi
-
-## Node-RED
-
-* Installer Node-RED sur le serveur
- 
 
 
 
