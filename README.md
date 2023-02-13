@@ -171,19 +171,19 @@ AdressIPRaspberry:1880
 ```
 
 * Pour tracer des graphiques sur les différentes données des robots, importer le module dashboard:
-* 
+
 ![Node red import](https://user-images.githubusercontent.com/124148152/218455377-68676edf-a7a8-44f6-bbb8-140f79582564.jpg)
  
 * Utiliser le format json des messages pour récupérer les données
-* 
+ 
 ![image](https://user-images.githubusercontent.com/124148152/218424080-634b2e25-d37a-42b6-a86b-70d9d733ed9c.png)
 
 * Aller dans l'onglet dashboard pour observer les courbes
-* 
+ 
 ![Dashboard](https://user-images.githubusercontent.com/124148152/218455411-a6dbe2e1-3b98-4dc5-b15f-3358039da6fa.jpg)
 
 * Pour différencier la provenance des données, utiliser le node switch qui peut faire des opérations de comparaison sur les adresses ip des robots qui émettent des données
-* 
+
 ![node_switch](https://user-images.githubusercontent.com/124148152/218455449-3519d3e5-d862-438d-adac-54bddaeda2b5.jpg)
 
 * Importer le module ci-dessous pour utiliser un clavier ou une souris branchée au raspberry pi:
