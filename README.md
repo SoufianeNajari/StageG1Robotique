@@ -35,7 +35,8 @@ https://github.com/Makeblock-official/PythonForMegaPi/tree/master/examples
  	- Mettre des ip static pour chaque robots pour faciliter la suite : DHCP Server -> Static Leases 
  ![image](https://user-images.githubusercontent.com/35781656/218414799-37e7afe9-2a4a-4825-a672-90806a005dd0.png)
 
-
+## Odométrie et utilisation du gyroscope 
+* *Voir [odometryV6.py](OdometryTest/odometryV6.py) pour un exemple d'utilisation fonctionnel*
 
 
 
