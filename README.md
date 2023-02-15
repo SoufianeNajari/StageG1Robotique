@@ -22,7 +22,7 @@ sudo systemctl disable hciuart
 sudo pip install megapi
 sudo pip install pyserial
 ```
-Et la configuration est alors terminé vous pouvez tester cela en exécutant un script exemple MakeBlock : 
+La configuration est alors terminé vous pouvez tester cela en exécutant un script exemple MakeBlock : 
 https://github.com/Makeblock-official/PythonForMegaPi/tree/master/examples
 
 ## Création d'un hotspot Wifi sur un des Raspberry : 
