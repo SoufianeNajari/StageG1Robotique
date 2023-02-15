@@ -1,7 +1,7 @@
 # Initialisation des robots
 ## Installation du système d'exploitation et configuration de la connexion wifi
 * Installer RasperryPi Lite 64-bit sur les cartes SD : https://www.raspberrypi.com/software/operating-systems/
-* Télecharger le fichier [wifi_hotspot/wpa_supplicant.conf](wifi_hotspot/wpa_supplicant.conf), modifier les lignes SSID et psk et le déplacer à la racine de carte SD.
+* Télecharger le fichier [wifi_hotspot/wpa_supplicant.conf](wifi_hotspot/wpa_supplicant.conf), modifier les lignes SSID et psk et le déplacer à la racine de la carte SD.
 * Il est possible de les connecter au réseau wifi hotspot crée par un RaspberryPi ce sera détaillé un peu plus bas.
 
 ## Configuration du RaspberryPi pour utiliser la librairie MakeBlock (Capteurs et Moteurs)
