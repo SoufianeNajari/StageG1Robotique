@@ -8,21 +8,13 @@ import json
 host = "10.3.141.1"
 port = 4455
 addr = (host, port)
-name = "Robot3"
+name = "Robot1"
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 ip1 = '10.3.141.101'
 ip2 = '10.3.141.102'
 ip3 = '10.3.141.103'
-client.bind(("0.0.0.0", 4455))
+client.bind(("", 4455))
 p = [(ip1, 4455), (ip2, 4455), (ip3, 4455)]
-bot = MegaPi()
-bot.start()
-# vitesseD = 30
-# vitesseG = vitesseD
-# bot.encoderMotorRun(1,vitesseD);
-# bot.encoderMotorRun(2, -vitesseG);
-sleep(1);
-
 
 distance = 0     
 vitesseD = 0
@@ -88,41 +80,58 @@ if __name__ == "__main__":
     
     
     def receive():
+        global vitesseD
+        global vitesseG
         while True:
             try:
                 message, addr = client.recvfrom(1024)
-                info = message.decode("utf-8")
-                print(info)
+                info = json.loads(message.decode("utf-8"))
+                print(info["Distance"])
+                if addr[0] == ip3 and float(info["Distance"]) < 20:
+                    vitesseD = vitesseD + 15
+                    vitesseG = vitesseD
+                if addr[0] == ip2 and float(info["Distance"]) < 20:
+                    vitesseD = vitesseD - 15
+                    vitesseG = vitesseD
             except:
                 pass
           
                            
-    def send():
-        while True:
-            sleep(1)
-            MsgRobot()
-            SendServer()
-            try:
-                SendRobot1()
-            except:
-                pass
+    # def send():
+    #     while True:
+    #         sleep(1)
+    #         MsgRobot()
+    #         SendServer()
+    
+
+    # def run():
+    #     global vitesseG
+    #     global vitesseD
+    #     while True:
+    #         sleep(0.03)
+    #         # bot.ultrasonicSensorRead(8, getValDistance)
+    #         # if distance <20:
+    #         #     vitesseG = -vitesseD 
+    #         # else:     
+    #         #     vitesseG = vitesseD
+    #         bot.encoderMotorRun(1, int(vitesseD))
+    #         bot.encoderMotorRun(2, -int(vitesseG))
 
 
     t1 = threading.Thread(target=receive)
-    t2 = threading.Thread(target=send)
+    # t2 = threading.Thread(target=send)
+    # t3 = threading.Thread(target=run)
 
     t1.start()
-    t2.start()
+    # t2.start()
+    # t3.start()
     
-    
-    # while True:
-    #     sleep(0.03)
-    #     bot.ultrasonicSensorRead(8, getValDistance)
-    #     if distance <20:
-    #         bot.encoderMotorRun(1, 0)
-    #         vitesseG = -vitesseD - vitesseD//2 
-    #     else:
-            
-    #         vitesseG = vitesseD
-    #     bot.encoderMotorRun(1, vitesseD)
-    #     bot.encoderMotorRun(2, -vitesseG)
+    while True:
+        sleep(0.03)
+        bot.ultrasonicSensorRead(8, getValDistance)
+        if distance <20:
+            vitesseG = -vitesseD 
+        else:     
+            vitesseG = vitesseD
+        bot.encoderMotorRun(1, int(vitesseD))
+        bot.encoderMotorRun(2, -int(vitesseG))

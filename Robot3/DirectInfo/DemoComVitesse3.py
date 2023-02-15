@@ -13,15 +13,9 @@ client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 ip1 = '10.3.141.101'
 ip2 = '10.3.141.102'
 ip3 = '10.3.141.103'
-client.bind(("0.0.0.0", 4455))
+client.bind(("", 4455))
 p = [(ip1, 4455), (ip2, 4455), (ip3, 4455)]
-bot = MegaPi()
-bot.start()
-# vitesseD = 30
-# vitesseG = vitesseD
-# bot.encoderMotorRun(1,vitesseD);
-# bot.encoderMotorRun(2, -vitesseG);
-sleep(1);
+
 
 
 distance = 0     
@@ -115,14 +109,3 @@ if __name__ == "__main__":
     t2.start()
     
     
-    # while True:
-    #     sleep(0.03)
-    #     bot.ultrasonicSensorRead(8, getValDistance)
-    #     if distance <20:
-    #         bot.encoderMotorRun(1, 0)
-    #         vitesseG = -vitesseD - vitesseD//2 
-    #     else:
-            
-    #         vitesseG = vitesseD
-    #     bot.encoderMotorRun(1, vitesseD)
-    #     bot.encoderMotorRun(2, -vitesseG)
