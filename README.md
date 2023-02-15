@@ -1,8 +1,7 @@
 # Initialisation des robots
 ## Installation du système d'exploitation et configuration de la connexion wifi
 * Installer RasperryPi Lite 64-bit sur les cartes SD : https://www.raspberrypi.com/software/operating-systems/
-* Modifier le fichier [wifi_hotspot/wpa_supplicant.conf](wifi_hotspot/wpa_supplicant.conf) ( Uniquement les lignes SSID et psk )
-* Déplacer le fichier dans la carte SD et démarrer le RaspberryPi dessus
+* Télecharger le fichier [wifi_hotspot/wpa_supplicant.conf](wifi_hotspot/wpa_supplicant.conf), modifier les lignes SSID et psk et le déplacer à la racine de carte SD.
 * Il est possible de les connecter au réseau wifi hotspot crée par un RaspberryPi ce sera détaillé un peu plus bas.
 
 ## Configuration du RaspberryPi pour utiliser la librairie MakeBlock (Capteurs et Moteurs)
@@ -14,9 +13,9 @@ sudo apt install python3-pip
 sudo reboot
 sudo raspi-config -> Localisation Options -> WLAN -> FR
 interface -> serial -> No / Yes
-sudo nano /boot/config.txt -> Ajouter : 	#Enable uart			à la fin.
-						enable_uart=1
-						dtoverlay=pi3-disable-bt
+sudo nano /boot/config.txt -> Ajouter à la fin : 	#Enable uart			
+							enable_uart=1
+							dtoverlay=pi3-disable-bt
 												
 sudo reboot
 sudo systemctl disable hciuart
