@@ -38,6 +38,10 @@ https://github.com/Makeblock-official/PythonForMegaPi/tree/master/examples
 ## Odométrie et utilisation du gyroscope 
 * *Voir [odometryV6.py](OdometryTest/odometryV6.py) pour un exemple d'utilisation fonctionnel*
 
+## Modèle cinématique 
+* *Voir cette [vidéo](https://www.youtube.com/watch?v=aE7RQNhwnPQ&) pour plus d'info*
+
+![modèle cinématique](https://user-images.githubusercontent.com/35781656/219004975-273fa09d-434d-4916-b01c-2fa068f99a3e.jpg)
 
 
 # Communication UDP
