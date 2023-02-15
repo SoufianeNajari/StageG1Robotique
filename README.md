@@ -83,12 +83,13 @@ Msg correspond au string codé en utf-8 que l'on veut envoyer et adrr l'adresse 
 
 * Le serveur doit être en mesure de pourvoir à la fois envoyer et recevoir des messages. Pour cela, créer des thread avec 2 fonctions, send et receive, chargées de recevoir et d'envoyer des informations, qui vont être exécuteés parallèlement:
 ```
-messages = queue.Queue()
+message_pile = queue.Queue()
 
 def receive():
     while True:
         try:
             message, addr = server.recvfrom(1024)
+	    message_pile.put((message, addr))
             print(message.decode("utf-8"))
         except:
             pass
@@ -96,7 +97,7 @@ def receive():
 def send():
     while True:
         while not messages.empty():
-            message, addr = messages.get()
+            message, addr = message_pile.get()
             server.sendto(message, p[0])
             server.sendto(message, p[1])
             server.sendto(message, p[2])
@@ -110,7 +111,7 @@ t2.start()
 Ici, le serveur stocke et affiche les messages qu'il reçoit dans une pile 'messages' dans la fonction receive, qui va ensuite être dépilée dans la fonction send pour renvoyer le message aux autres robots. "p" est une liste qui contient la liste des adresses des 3 robots.
 
 
-## Création des robots clients
+## Création des clients UDP
 
 * Importer les librairies suivantes:
 ```
