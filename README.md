@@ -63,7 +63,7 @@ ifconfig
 host = "10.3.141.1"
 port = 4455
 server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-server.bind((host, port))
+server.bind(("", port))
 ```
 
 * Saisir cette ligne pour recevoir un message :
