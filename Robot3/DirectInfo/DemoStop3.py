@@ -5,10 +5,11 @@ import queue
 from megapi import *
 import json
 
+
 host = "10.3.141.1"
 port = 4455
 addr = (host, port)
-name = "Robot2"
+name = "Robot3"
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 ip1 = '10.3.141.101'
 ip2 = '10.3.141.102'
@@ -79,6 +80,8 @@ if __name__ == "__main__":
     bot = MegaPi()
     bot.start()
     sleep(1);
+    bot.encoderMotorRun(1, 30)
+    bot.encoderMotorRun(2, -30)
     
     
     
@@ -86,29 +89,34 @@ if __name__ == "__main__":
         while True:
             try:
                 message, addr = client.recvfrom(1024)
-                info = message.decode("utf-8")
+                info = json.loads(message.decode("utf-8"))
                 #Touch here
 
-                
+
+                if info["Distance"]  <= 20:
+                    bot.encoderMotorRun(1, 0)
+                    bot.encoderMotorRun(2, 0)
+                if info["Distance"]  > 20:
+                    bot.encoderMotorRun(1, 30)
+                    bot.encoderMotorRun(2, -30)
+
+
                 print(info)
             except:
                 pass
           
                            
-    def send():
-        while True:
-            sleep(1)
-            MsgRobot()
-            SendServer()
-            try:
-                SendRobot1()
-            except:
-                pass
+    # def send():
+    #     while True:
+    #         sleep(1)
+    #         MsgRobot()
+    #         SendServer()
+ 
 
 
     t1 = threading.Thread(target=receive)
-    t2 = threading.Thread(target=send)
+    # t2 = threading.Thread(target=send)
 
     t1.start()
-    t2.start()
+    # t2.start()
     

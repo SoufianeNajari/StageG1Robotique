@@ -8,16 +8,13 @@ import json
 host = "10.3.141.1"
 port = 4455
 addr = (host, port)
-name = "Robot2"
+name = "Robot1"
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 ip1 = '10.3.141.101'
 ip2 = '10.3.141.102'
 ip3 = '10.3.141.103'
 client.bind(("", 4455))
 p = [(ip1, 4455), (ip2, 4455), (ip3, 4455)]
-
-
-
 
 distance = 0     
 vitesseD = 0
@@ -71,9 +68,14 @@ def SendServer():
     global msgRobot
     client.sendto(msgRobot, addr)
 
-def SendRobot1():
+def SendRobot2():
     global msgRobot
-    client.sendto(msgRobot, p[0])
+    client.sendto(msgRobot, p[1])
+
+def SendRobot3():
+    global msgRobot
+    client.sendto(msgRobot, p[2])
+
 
 if __name__ == "__main__":
     bot = MegaPi()
@@ -82,33 +84,41 @@ if __name__ == "__main__":
     
     
     
-    def receive():
-        while True:
-            try:
-                message, addr = client.recvfrom(1024)
-                info = message.decode("utf-8")
-                #Touch here
-
-                
-                print(info)
-            except:
-                pass
+    # def receive():
+    #     while True:
+    #         try:
+    #             message, addr = client.recvfrom(1024)
+    #         except:
+    #             pass
           
                            
     def send():
         while True:
             sleep(1)
             MsgRobot()
-            SendServer()
             try:
-                SendRobot1()
+                SendRobot2()
+            except:
+                pass
+            try:
+                SendRobot3()
             except:
                 pass
 
 
-    t1 = threading.Thread(target=receive)
+    # t1 = threading.Thread(target=receive)
     t2 = threading.Thread(target=send)
 
-    t1.start()
+    # t1.start()
     t2.start()
+
     
+    while True:
+        sleep(0.03)
+        bot.encoderMotorRun(1, 30)
+        bot.encoderMotorRun(2, -30)
+        bot.ultrasonicSensorRead(8, getValDistance)
+        if distance <= 20:
+            bot.encoderMotorRun(1, 0)
+            bot.encoderMotorRun(2, 0)
+            
