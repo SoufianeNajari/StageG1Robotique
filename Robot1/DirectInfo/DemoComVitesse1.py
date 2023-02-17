@@ -13,8 +13,11 @@ client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 ip1 = '10.3.141.101'
 ip2 = '10.3.141.102'
 ip3 = '10.3.141.103'
+#Ajouter les adresses ip des robots supplémentaires ci-dessous
+#ip4 = ...
+
 client.bind(("", 4455))
-p = [(ip1, 4455), (ip2, 4455), (ip3, 4455)]
+p = [(ip1, 4455), (ip2, 4455), (ip3, 4455)] #ajouter des cases au tableau des adresses en fonction du nombre de robots supplémentaires ajoutés
 
 distance = 0     
 vitesseD = 0
@@ -83,6 +86,8 @@ if __name__ == "__main__":
         global vitesseD
         global vitesseG
         while True:
+            #Editer ici pour manipuler les informations reçues
+
             try:
                 message, addr = client.recvfrom(1024)
                 info = json.loads(message.decode("utf-8"))
@@ -99,32 +104,16 @@ if __name__ == "__main__":
                            
     # def send():
     #     while True:
-    #         sleep(1)
-    #         MsgRobot()
-    #         SendServer()
+    #         Editer la topologie de communication ici
     
 
-    # def run():
-    #     global vitesseG
-    #     global vitesseD
-    #     while True:
-    #         sleep(0.03)
-    #         # bot.ultrasonicSensorRead(8, getValDistance)
-    #         # if distance <20:
-    #         #     vitesseG = -vitesseD 
-    #         # else:     
-    #         #     vitesseG = vitesseD
-    #         bot.encoderMotorRun(1, int(vitesseD))
-    #         bot.encoderMotorRun(2, -int(vitesseG))
 
 
     t1 = threading.Thread(target=receive)
     # t2 = threading.Thread(target=send)
-    # t3 = threading.Thread(target=run)
 
     t1.start()
     # t2.start()
-    # t3.start()
     
     while True:
         sleep(0.03)

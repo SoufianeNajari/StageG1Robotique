@@ -13,8 +13,11 @@ client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 ip1 = '10.3.141.101'
 ip2 = '10.3.141.102'
 ip3 = '10.3.141.103'
+#Ajouter les adresses ip des robots supplémentaires ci-dessous
+#ip4 = ...
+
 client.bind(("", 4455))
-p = [(ip1, 4455), (ip2, 4455), (ip3, 4455)]
+p = [(ip1, 4455), (ip2, 4455), (ip3, 4455)] #ajouter des cases au tableau des adresses en fonction du nombre de robots supplémentaires ajoutés
 
 
 
@@ -89,7 +92,7 @@ if __name__ == "__main__":
             try:
                 message, addr = client.recvfrom(1024)
                 info = json.loads(message.decode("utf-8"))
-                #Touch here
+                #Editer ici pour manipuler les informations reçues
                 if info["Distance"]  <= 20:
                     bot.encoderMotorRun(1, 0)
                     bot.encoderMotorRun(2, 0)
@@ -105,9 +108,7 @@ if __name__ == "__main__":
                            
     # def send():
     #     while True:
-    #         sleep(1)
-    #         MsgRobot()
-    #         SendServer()
+    #     Editer la topologie de communication ici
  
 
 
